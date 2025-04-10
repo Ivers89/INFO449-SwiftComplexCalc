@@ -48,10 +48,16 @@ class Calculator {
         return op(lhs, rhs)
     }
     
-    func count (elements: [Int]) -> Int {
-        return elements.count
+    func count (_ args: [Int]) -> Int {
+        return args.count
     }
     
+    func avg(_ args: [Int]) -> Int {
+        guard !args.isEmpty else { return 0 }
+        return add(args) / args.count
+    }
+    
+    //array add
     func add (_ args: [Int]) -> Int {
         guard !args.isEmpty else {
                     return 0
@@ -63,7 +69,78 @@ class Calculator {
         return sum
         }
     
+    func multiply (_ args: [Int]) -> Int {
+        guard !args.isEmpty else {
+                    return 0
+                }
+        var sum = 1
+        for num in args {
+                sum *= num
+            }
+        return sum
+        }
+    
+    func mathOp(args: [Int], beg: Int, op: (Int, Int) -> Int) -> Int {
+        var answer = beg
+        for num in args {
+            answer = op(answer, num)
+        }
+        return answer
+    }
+    
+    //tuple add and subtract
+    func add(lhs: (Int, Int), rhs: (Int, Int)) -> (Int,Int) {
+        return (lhs.0 + rhs.0, lhs.1 + rhs.1 )
+    }
+
+    func subtract(lhs: (Int, Int), rhs: (Int, Int)) -> (Int,Int) {
+        return (lhs.0 - rhs.0, lhs.1 - rhs.1 )
+    }
+    
+    func add(lhs: [String: Int], rhs: [String: Int]) -> [String: Int] {
+        var answer = [String: Int]()
+        let allKeys = Set(lhs.keys).union(rhs.keys)
+        
+        for key in allKeys {
+            var left = 0
+            var right = 0
+
+            if let l = lhs[key] {
+                left = l
+            }
+            if let r = rhs[key] {
+                right = r
+            }
+
+            answer[key] = left + right
+        }
+
+        return answer
+    }
+    
+    func subtract(lhs: [String: Int], rhs: [String: Int]) -> [String: Int] {
+        var answer = [String: Int]()
+        let allKeys = Set(lhs.keys).union(rhs.keys)
+        
+        for key in allKeys {
+            var left = 0
+            var right = 0
+
+            if let l = lhs[key] {
+                left = l
+            }
+            if let r = rhs[key] {
+                right = r
+            }
+
+            answer[key] = left - right
+        }
+
+        return answer
+    }
+    
 }
+
 
 //: Don't change the name of this object (`calc`); it's used in all the tests.
 let calc = Calculator()
