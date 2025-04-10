@@ -97,6 +97,7 @@ class Calculator {
         return (lhs.0 - rhs.0, lhs.1 - rhs.1 )
     }
     
+    //dictionary add and subtract
     func add(lhs: [String: Int], rhs: [String: Int]) -> [String: Int] {
         var answer = [String: Int]()
         let allKeys = Set(lhs.keys).union(rhs.keys)
